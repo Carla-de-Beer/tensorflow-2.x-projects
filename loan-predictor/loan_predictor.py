@@ -1,7 +1,7 @@
 # Carla de Beer
 # Created: February 2020
-# Keras API project to predict whether a customer is likely to repay a loan, or to default on it.
-# Based on the Udemy course: Complete TensforFlow 2 and Keras Deep Learning Bootcamp:
+# A Keras-based deeplearning ANN predict whether a customer is likely to repay a loan, or to default on it.
+# Based on the Udemy course: Complete TensorFlow 2 and Keras Deep Learning Bootcamp:
 # https://www.udemy.com/course/complete-tensorflow-2-and-keras-deep-learning-bootcamp
 # The project uses a subset of the LendingClub DataSet obtained from Kaggle:
 # https://www.kaggle.com/wordsforthewise/lending-club
