@@ -1,5 +1,5 @@
 # TensorFlow 2.0+ Projects
-[![GitHub issues](https://img.shields.io/github/issues/Carla-de-Beer/tensorflow-2.0-projects.svg?style=flat-square)](https://github.com/Carla-de-Beer/tensorflow-2.0/issues)
+[![GitHub issues](https://img.shields.io/github/issues/Carla-de-Beer/tensorflow-2.0-projects.svg?style=flat-square)](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/issues)
 
 This repository contains a number of TensorFlow 2.0+ projects written in Python 3.6.
 

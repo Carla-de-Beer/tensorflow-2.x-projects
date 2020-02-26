@@ -22,7 +22,6 @@ https://www.udemy.com/course/complete-tensorflow-2-and-keras-deep-learning-bootc
 </p>
 
 ### Losses During Training
-</br>
 <p align="center">
   <img src="images/plot losses.png" width="650px"/>
 </p>
