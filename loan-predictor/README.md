@@ -7,7 +7,8 @@ https://www.udemy.com/course/complete-tensorflow-2-and-keras-deep-learning-bootc
 
 ## Resources
 
-* The project uses a subset of the LendingClub DataSet obtained from Kaggle: https://www.kaggle.com/wordsforthewise/lending-club
+* The project uses a subset of the LendingClub DataSet obtained from Kaggle: https://www.kaggle.com/wordsforthewise/lending-club.
+Note that the images are contained within a zipped folder that needs to be unzipped prior to running the script file.
 
 ## Data Analysis
 
