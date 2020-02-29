@@ -7,9 +7,9 @@ This repository contains a number of TensorFlow 2.0+ Keras-based projects writte
 
 The following is a list of the projects included in this repository:
 
-* CNN
- * [Malaria Predictor:](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/CNN/malaria-predictor) A Keras-based deeplearning CNN to predict whether a cell has been infected by malaria or not.
+* Convolutional Neural Networks (CNNs)
+	* [Malaria Predictor:](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/CNN/malaria-predictor) A Keras-based deeplearning CNN to predict whether a cell has been infected by malaria or not.
 
 
-* Regression
+* Regression Analysis with Artificial Neural Networks (ANNs)
 	* [Loan Predictor:](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/Regression/loan-predictor) A Keras-based deeplearning ANN to predict whether a customer is likely to repay a loan, or to default on it.
