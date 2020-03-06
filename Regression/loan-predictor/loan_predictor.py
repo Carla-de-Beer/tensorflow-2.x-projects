@@ -18,6 +18,8 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from sklearn.metrics import classification_report, confusion_matrix
 
+epochs = 150
+
 # #########################################################
 # Data Loading
 # #########################################################
@@ -26,87 +28,124 @@ data_info = pd.read_csv('data/lending_club_info.csv', index_col='LoanStatNew')
 print(data_info.loc['revol_util']['Description'])
 
 
-def feature_info(col_name):
+def get_feature_info(col_name):
     print(data_info.loc[col_name]['Description'])
 
 
-feature_info('mort_acc')
+get_feature_info('mort_acc')
 
 df = pd.read_csv('data/lending_club_loan_data.csv')
 df.info()
+
 
 # #########################################################
 # Exploratory Data Analysis
 # #########################################################
 
-# Create a countplot with loan_status on the x-axis.
-sns.countplot(x='loan_status', data=df)
-plt.savefig('images/countplot loan_status')
-plt.show()
-# => Use precision and recall rather than accuracy because the dataset is imbalanced.
+def plot_countplot_loan_status():
+    sns.countplot(x='loan_status', data=df)
+    plt.savefig('images/countplot-loan_status')
+    plt.show()
+    # => Use precision and recall rather than accuracy because the dataset is imbalanced.
 
-# Create a histogram of the loan_amnt column.
-plt.figure(figsize=(12, 4))
-sns.distplot(df['loan_amnt'], kde=False, bins=40)
-plt.savefig('images/distplot loan_amnt')
-plt.xlim(0, 45000)
 
-# Examine the correlation between the continuous feature variables.
-# Calculate the correlation between all continuous numeric variables.
-df.corr()
+def plot_histogram_loan_amnt():
+    plt.figure(figsize=(12, 4))
+    sns.distplot(df['loan_amnt'], kde=False, bins=40)
+    plt.savefig('images/distplot-loan_amnt')
+    plt.xlim(0, 45000)
 
-# Visualize this using a heatmap.
-plt.figure(figsize=(12, 8))
-sns.heatmap(df.corr(), annot=True, cmap='viridis')
-plt.savefig('images/heatmap correlation')
-plt.show()
 
-# There is an almost perfect correlation with the "installment" feature.
-# Create a scatterplot relating installment and loan_amnt.
-feature_info('installment')
-feature_info('loan_amnt')
-sns.scatterplot(x='installment', y='loan_amnt', data=df)
-plt.savefig('images/scatterplot installment')
-plt.show()
+def plot_correlations_heatmap():
+    plt.figure(figsize=(12, 8))
+    sns.heatmap(df.corr(), annot=True, cmap='viridis')
+    plt.savefig('images/heatmap-correlation')
+    plt.show()
 
-# Create a boxplot showing the relationship between loan_status and loan_amnt.
-sns.boxplot(df['loan_status'], df['loan_amnt'])
-plt.savefig('images/boxplot loan_status loan_amnt')
-plt.show()
 
-# Calculate the summary statistics for the loan_amnt, grouped by the loan_status.
-df.groupby('loan_status')['loan_amnt'].describe()
+def plot_scatterplot_installment_loan_amnt():
+    get_feature_info('installment')
+    get_feature_info('loan_amnt')
+    sns.scatterplot(x='installment', y='loan_amnt', data=df)
+    plt.savefig('images/scatterplot-installment')
+    plt.show()
 
-# Explore the grade and sub-grade columns that are attributed to the loans.
-df['grade'].sort_values().unique().tolist()
-df['sub_grade'].sort_values().unique().tolist()
 
-# Create a countplot per grade.
-sns.countplot(x='grade', data=df, hue='loan_status')
-plt.savefig('images/countplot grade')
-plt.show()
+def plot_boxplot_loan_status_loan_amnt():
+    sns.boxplot(df['loan_status'], df['loan_amnt'])
+    plt.savefig('images/boxplot-loan_status-loan_amnt')
+    plt.show()
 
-# Display a count plot per sub-grade.
-# Create a similar plot, but set hue="loan_status"
-plt.figure(figsize=(12, 4))
-order = df['sub_grade'].sort_values().unique().tolist()
-sns.countplot(x='sub_grade', data=df, order=order, palette='coolwarm')
-plt.savefig('images/countplot sub_grade 1')
-plt.show()
 
-plt.figure(figsize=(12, 4))
-sns.countplot(x='sub_grade', data=df, order=order, palette='coolwarm', hue='loan_status')
-plt.savefig('images/countplot sub_grade 2')
-plt.show()
+def plot_countplot_grade():
+    sns.countplot(x='grade', data=df, hue='loan_status')
+    plt.savefig('images/countplot-grade')
+    plt.show()
 
-# It looks like F and G sub-grades don't get paid back that often.
-# Isolate those and recreate the countplot for those sub-grades.
-plt.figure(figsize=(12, 4))
-f_and_g = df[(df['grade'] == 'G') | (df['grade'] == 'F')]
-subgrade_order = sorted(f_and_g['sub_grade'].unique())
-sns.countplot(x='sub_grade', data=df, hue='loan_status', order=subgrade_order)
-plt.savefig('images/countplot sub_grade 3')
-plt.show()
+
+def plot_countplot_per_sub_grade():
+    plt.figure(figsize=(12, 4))
+    order = df['sub_grade'].sort_values().unique().tolist()
+    sns.countplot(x='sub_grade', data=df, order=order, palette='coolwarm')
+    plt.savefig('images/countplot-sub_grade')
+    plt.show()
+
+    plt.figure(figsize=(12, 4))
+    sns.countplot(x='sub_grade', data=df, order=order, palette='coolwarm', hue='loan_status')
+    plt.savefig('images/countplot-sub_grade-loan_status')
+    plt.show()
+
+
+def plot_countplot_sub_grades():
+    plt.figure(figsize=(12, 4))
+    f_and_g = df[(df['grade'] == 'G') | (df['grade'] == 'F')]
+    subgrade_order = sorted(f_and_g['sub_grade'].unique())
+    sns.countplot(x='sub_grade', data=df, hue='loan_status', order=subgrade_order)
+    plt.savefig('images/countplot sub_grade 3')
+    plt.show()
+
+
+def create_plots_explanatory_analysis():
+    # Create a countplot with loan_status on the x-axis.
+    plot_countplot_loan_status()
+
+    # Create a histogram of the loan_amnt column.
+    plot_histogram_loan_amnt()
+
+    # Examine the correlation between the continuous feature variables.
+    # Calculate the correlation between all continuous numeric variables.
+    df.corr()
+
+    # Visualize this using a heatmap.
+    plot_correlations_heatmap()
+
+    # There is an almost perfect correlation with the "installment" feature.
+    # Create a scatterplot relating installment and loan_amnt.
+    plot_scatterplot_installment_loan_amnt()
+
+    # Create a boxplot showing the relationship between loan_status and loan_amnt.
+    plot_boxplot_loan_status_loan_amnt()
+
+    # Calculate the summary statistics for the loan_amnt, grouped by the loan_status.
+    df.groupby('loan_status')['loan_amnt'].describe()
+
+    # Explore the grade and sub-grade columns that are attributed to the loans.
+    df['grade'].sort_values().unique().tolist()
+    df['sub_grade'].sort_values().unique().tolist()
+
+    # Create a countplot per grade.
+    plot_countplot_grade()
+
+    # Display a count plot per sub-grade.
+    # Create a similar plot, but set hue="loan_status"
+    plot_countplot_per_sub_grade()
+
+    # It looks like F and G sub-grades don't get paid back that often.
+    # Isolate those and recreate the countplot for those sub-grades.
+    plot_countplot_sub_grades()
+
+
+create_plots_explanatory_analysis()
 
 
 # Create a new column called 'loan_repaid' which will contain a 1 if the loan status was "Fully Paid" and
@@ -122,11 +161,17 @@ def convert_status(status):
 df['loan_repaid'] = df['loan_status'].apply(convert_status)
 print(df[['loan_repaid', 'loan_status']])
 
-# Create a bar plot showing the correlation of the numeric features to the new loan_repaid column.
-# Drop loan_repaid because it is perfectly correlated with itself.
-df.corr()['loan_repaid'].drop('loan_repaid').sort_values().plot(kind='bar')
-plt.savefig('images/plot corr')
-plt.show()
+
+def plot_load_repaid():
+    # Create a bar plot showing the correlation of the numeric features to the new loan_repaid column.
+    # Drop loan_repaid because it is perfectly correlated with itself.
+    df.corr()['loan_repaid'].drop('loan_repaid').sort_values().plot(kind='bar')
+    plt.savefig('images/plot-correlation')
+    plt.show()
+
+
+plot_load_repaid()
+
 
 # #########################################################
 # Data PreProcessing: Remove or fill any missing data.
@@ -140,6 +185,19 @@ plt.show()
 # to see if we should keep, discard, or fill in the missing data.
 # #########################################################
 
+def count_plot_empl_length(emp_length_new_order):
+    data = df.sort_values(by='emp_length', ascending=False)
+    plt.figure(figsize=(12, 4))
+    sns.countplot(x='emp_length', data=data, order=emp_length_new_order)
+    plt.savefig('images/countplot-emp_length')
+    plt.show()
+
+    plt.figure(figsize=(12, 4))
+    sns.countplot(x='emp_length', data=df, order=emp_length_new_order, hue='loan_status')
+    plt.savefig('images/countplot-emp_length-loan_status')
+    plt.show()
+
+
 # What is the length of the dataframe?
 print(df.shape[0])
 
@@ -150,8 +208,8 @@ df.isnull().sum()
 df.isnull().sum().div(df.shape[0]).mul(100)
 
 # Examine emp_title and emp_length to see whether it will be okay to drop them.
-feature_info('emp_title')
-feature_info('emp_length')
+get_feature_info('emp_title')
+get_feature_info('emp_length')
 
 # How many unique employment job titles are there?
 df['emp_title'].value_counts()
@@ -171,17 +229,7 @@ emp_length_new_order = ['< 1 year', '1 year', '2 years', '3 years', '4 years', '
                         '8 years', '9 years', '10+ years',
                         ]
 
-data = df.sort_values(by='emp_length', ascending=False)
-plt.figure(figsize=(12, 4))
-sns.countplot(x='emp_length', data=data, order=emp_length_new_order)
-plt.savefig('images/countplot emp_length 1')
-plt.show()
-
-# Plot out the countplot with a hue separating Fully Paid vs Charged Off
-plt.figure(figsize=(12, 4))
-sns.countplot(x='emp_length', data=df, order=emp_length_new_order, hue='loan_status')
-plt.savefig('images/countplot emp_length 2')
-plt.show()
+count_plot_empl_length(emp_length_new_order)
 
 # The percentage of charge offs per category is required,
 # i.e. determine what percent of people per employment category didn't pay back their loan.
@@ -208,7 +256,7 @@ print(div)
 loan_default_df = pd.DataFrame(data=div, index=emp_length_order, columns=['emp_length'])
 print(loan_default_df)
 loan_default_df.plot(kind='bar', legend=False)
-plt.savefig('images/bar plot')
+plt.savefig('images/bar-plot')
 plt.show()
 
 # Charge off rates are extremely similar across all employment lengths, so drop the emp_length column.
@@ -220,12 +268,12 @@ df['purpose'].head(10)
 df['title'].head(10)
 
 # The title column is simply a string subcategory/description of the purpose column, so drop the title column.
-feature_info('purpose')
-feature_info('title')
+get_feature_info('purpose')
+get_feature_info('title')
 df = df.drop(['title'], axis=1)
 
 # Find out what the mort_acc feature represents
-feature_info('mort_acc')
+get_feature_info('mort_acc')
 
 # Create a value_counts of the mort_acc column.
 df['mort_acc'].value_counts()
@@ -263,19 +311,24 @@ df.isnull().sum()
 df = df.dropna()
 df.isnull().sum()
 
+
 # #########################################################
 # Categorical Variables and Dummy Variables
 # #########################################################
+
+def convert_term_column():
+    get_feature_info('term')
+    df['term'].value_counts()
+    df['term'] = df['term'].apply(lambda term: int(term[:3]))
+    df['term'].value_counts()
+
 
 # List all the columns that are currently non-numeric.
 print(df.select_dtypes(['object']).columns)
 
 # term feature
 # Convert the term feature into either a 36 or 60 integer numeric data type.
-feature_info('term')
-df['term'].value_counts()
-df['term'] = df['term'].apply(lambda term: int(term[:3]))
-df['term'].value_counts()
+convert_term_column()
 
 # grade feature
 # Grade is part of sub_grade, so drop the grade feature.
@@ -325,23 +378,30 @@ df = pd.concat([df.drop(['zip_code'], axis=1), dummies], axis=1)
 df.head()
 df = df.drop('address', axis=1)
 
-# issue_d
-# Wouldn't know beforehand whether or not a loan would be issued when using our model,
-# so in theory we wouldn't have an issue_date. Drop this feature.
-feature_info('issue_d')
-df = df.drop('issue_d', axis=1)
 
-# earliest_cr_line
-# Extract the year from this feature and convert it to a numeric feature.
-# Set this new data to a feature column called 'earliest_cr_year' and drop the earliest_cr_line feature.
-feature_info('earliest_cr_line')
-df['earliest_cr_line'].value_counts()
-df['earliest_cr_line'] = df['earliest_cr_line'].apply(lambda date: int(date[-4:]))
-df['earliest_cr_line'].value_counts()
+def drop_unnecessary_columns(df):
+    # issue_d
+    # Wouldn't know beforehand whether or not a loan would be issued when using our model,
+    # so in theory we wouldn't have an issue_date. Drop this feature.
+    get_feature_info('issue_d')
+    df = df.drop('issue_d', axis=1)
+
+    # earliest_cr_line
+    # Extract the year from this feature and convert it to a numeric feature.
+    # Set this new data to a feature column called 'earliest_cr_year' and drop the earliest_cr_line feature.
+    get_feature_info('earliest_cr_line')
+    df['earliest_cr_line'].value_counts()
+    df['earliest_cr_line'] = df['earliest_cr_line'].apply(lambda date: int(date[-4:]))
+    df['earliest_cr_line'].value_counts()
+    return df
+
+
+df = drop_unnecessary_columns(df)
 
 # #########################################################
 # Train Test Split
 # #########################################################
+
 
 # Drop the load_status column we created earlier, since its a duplicate of the loan_repaid column.
 # We'll use the loan_repaid column since its already in 0s and 1s.
@@ -364,74 +424,89 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # Data Normalisation
 # #########################################################
 
+
 scaler = MinMaxScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
+
 
 # #########################################################
 # Model Creation
 # #########################################################
 
-# Build a sequential model to will be trained on the data.
-print(X_train.shape)
+def create_model():
+    # Build a sequential model to will be trained on the data.
+    print(X_train.shape)
 
-model = Sequential()
+    model = Sequential()
 
-model.add(Dense(units=78, activation='relu'))
-model.add(Dropout(0.5))
+    model.add(Dense(units=78, activation='relu'))
+    model.add(Dropout(0.5))
 
-model.add(Dense(units=39, activation='relu'))
-model.add(Dropout(0.5))
+    model.add(Dense(units=39, activation='relu'))
+    model.add(Dropout(0.5))
 
-model.add(Dense(units=19, activation='relu'))
-model.add(Dropout(0.5))
+    model.add(Dense(units=19, activation='relu'))
+    model.add(Dropout(0.5))
 
-model.add(Dense(units=1, activation='sigmoid'))
+    model.add(Dense(units=1, activation='sigmoid'))
 
-model.compile(loss='binary_crossentropy', optimizer='adam')
+    model.compile(loss='binary_crossentropy', optimizer='adam')
 
-early_stop = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=25)
+    early_stop = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=25)
 
-# Fit the model to the training data.
-# Also add in the validation data for later plotting. Use batching because we have a large dataset.
-model.fit(x=X_train, y=y_train, epochs=150, batch_size=256, validation_data=(X_test, y_test), callbacks=[early_stop])
+    # Fit the model to the training data.
+    # Also add in the validation data for later plotting. Use batching because we have a large dataset.
+    model.fit(x=X_train, y=y_train, epochs=epochs, batch_size=256, validation_data=(X_test, y_test),
+              callbacks=[early_stop])
 
-# Save the model.
-model.save('training_run_1.h5')
+    # Save the model.
+    model.save('training_run_1.h5')
+
+    return model
+
+
+model = create_model()
+
 
 # #########################################################
 # Model Performance Evaluation
 # #########################################################
 
-# Plot out the validation loss versus the training loss.
-losses = pd.DataFrame(model.history.history)
-losses.plot()
-plt.savefig('images/plot losses')
-plt.show()
+def analyse_results():
+    # Plot out the validation loss versus the training loss.
+    losses = pd.DataFrame(model.history.history)
+    losses.plot()
+    plt.savefig('images/plot-losses')
+    plt.show()
 
-# Create predictions from the X_test set and display a classification report and confusion matrix for the X_test set.
-predictions = model.predict_classes(X_test)
+    # Create predictions from the X_test set and display
+    # a classification report and confusion matrix for the X_test set.
+    predictions = model.predict_classes(X_test)
 
-print(classification_report(y_test, predictions))
-print(confusion_matrix(y_test, predictions))
+    print(classification_report(y_test, predictions))
+    print(confusion_matrix(y_test, predictions))
 
-df['loan_repaid'].value_counts()
-df['loan_repaid'].value_counts()[1] / len(df)
+    df['loan_repaid'].value_counts()
+    df['loan_repaid'].value_counts()[1] / len(df)
 
-# Imbalanced data set => don't be fooled by the accuracy:
-# if the model always reports true, it will be 80% correct all the time.
-# Need to improve the recall and f1-score values for label '0'.
+    # Imbalanced data set => don't be fooled by the accuracy:
+    # if the model always reports true, it will be 80% correct all the time.
+    # Need to improve the recall and f1-score values for label '0'.
 
-# Given the customer below, would you offer this person a loan?
-random.seed(101)
-random_ind = random.randint(0, len(df))
+    # Given the customer below, would you offer this person a loan?
+    random.seed(101)
+    random_ind = random.randint(0, len(df))
 
-new_customer = df.drop('loan_repaid', axis=1).iloc[random_ind]
-print(new_customer)
+    new_customer = df.drop('loan_repaid', axis=1).iloc[random_ind]
+    print(new_customer)
 
-new_customer = scaler.transform(new_customer.values.reshape(1, 78))
+    new_customer = scaler.transform(new_customer.values.reshape(1, 78))
 
-model.predict_classes(new_customer)
+    model.predict_classes(new_customer)
 
-# Now check, did this person actually end up paying back their loan?
-print(df.iloc[random_ind]['loan_repaid'])
+    # Now check, did this person actually end up paying back their loan?
+    print(df.iloc[random_ind]['loan_repaid'])
+
+
+analyse_results()

@@ -14,15 +14,15 @@ Note that the images are contained within a zipped folder that needs to be unzip
 
 </br>
 <p align="center">
-  <img src="images/distplot loan_amnt.png" width="650px"/>
-  <img src="images/heatmap correlation.png" width="650px"/>
-  <img src="images/countplot loan_status.png" width="650px"/>
-  <img src="images/boxplot loan_status loan_amnt.png" width="650px"/>
-  <img src="images/countplot sub_grade 1.png" width="650px"/>
-  <img src="images/countplot sub_grade 2.png" width="650px"/>
+  <img src="images/distplot-loan_amnt.png" width="650px"/>
+  <img src="images/heatmap-correlation.png" width="650px"/>
+  <img src="images/countplot-loan_status.png" width="650px"/>
+  <img src="images/boxplot-loan_status-loan_amnt.png" width="650px"/>
+  <img src="images/countplot-sub_grade-loan_status.png" width="650px"/>
+  <img src="images/countplot-sub_grade.png" width="650px"/>
 </p>
 
 ### Losses During Training
 <p align="center">
-  <img src="images/plot losses.png" width="650px"/>
+  <img src="images/plot-losses.png" width="650px"/>
 </p>
