@@ -13,6 +13,6 @@ The following is a list of the projects included in this repository:
 
 ## [Deep Feed-Forward Neural Networks (DFFs)](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/dff)
 * [Classification with DFFs](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/dff/classification/)
-	* [Iris Dataset Classifier:](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/dff/regression/loan-predictor) A Keras-based deep feed-forward neural network classifying iris flower species given the input parameters provided.
+	* [Iris Dataset Classifier:](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/dff/classifier/iris-dataset-classifier) A Keras-based deep feed-forward neural network classifying iris flower species given the input parameters provided.
 * [Regression Analysis with DFFs](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/dff/regression/loan-predictor)
-	* [Loan Predictor:](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/dff/regression/loan-predictor) A Keras-based deeplearning ANN to predict whether a customer is likely to repay a loan, or to default on it.
+	* [Loan Predictor:](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/dff/regression/loan-predictor) A Keras-based deep feed-forward ANN to predict whether a customer is likely to repay a loan, or to default on it.

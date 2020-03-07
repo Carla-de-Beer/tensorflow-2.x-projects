@@ -1,6 +1,6 @@
 # Loan Predictor
 
-A Keras-based deep learning ANN predict whether a customer is likely to repay a loan, or to default on it.
+A Keras-based deep feed-forward ANN to predict whether a customer is likely to repay a loan, or to default on it.
 
 Based on the Udemy course: Complete TensorFlow 2 and Keras Deep Learning Bootcamp:
 https://www.udemy.com/course/complete-tensorflow-2-and-keras-deep-learning-bootcamp

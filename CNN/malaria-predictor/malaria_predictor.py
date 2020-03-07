@@ -1,6 +1,6 @@
 # Carla de Beer
 # Created: February 2020
-# A Keras-based deeplearning CNN to predict whether a cell has been infected by malaria or not.
+# A Keras-based deep learning CNN to predict whether a cell has been infected by malaria or not.
 # Based on the Udemy course: Complete TensorFlow 2 and Keras Deep Learning Bootcamp:
 # https://www.udemy.com/course/complete-tensorflow-2-and-keras-deep-learning-bootcamp
 # The project uses the malaria image dataset obtained from National Library of Medicine:
