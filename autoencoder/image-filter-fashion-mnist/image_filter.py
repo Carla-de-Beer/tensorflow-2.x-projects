@@ -1,8 +1,6 @@
 # Carla de Beer
 # Created: March 2020
 # A Keras-based deep learning autoencoder that filters out noise from a given image.
-# Based on the Udemy course: Complete TensorFlow 2 and Keras Deep Learning Bootcamp:
-# https://www.udemy.com/course/complete-tensorflow-2-and-keras-deep-learning-bootcamp
 # The project uses the Fashion MNIST dataset:
 # https://github.com/zalandoresearch/fashion-mnist2
 
