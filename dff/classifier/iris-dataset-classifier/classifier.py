@@ -18,8 +18,8 @@ from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.models import load_model
 import joblib
 
-epochs = 400
-patience = 4
+epochs = 500
+patience = 3
 
 
 def read_data():
