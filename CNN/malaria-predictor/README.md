@@ -11,12 +11,13 @@ https://www.udemy.com/course/complete-tensorflow-2-and-keras-deep-learning-bootc
 
 ## Data Analysis
 
-</br>
+<br/>
 <p align="center">
   <img src="images/joinplot.png" width="650px"/>
 </p>
 
 ### Losses During Training
+<br/>
 <p align="center">
   <img src="images/loss_compare.png" width="650px"/>
   <img src="images/accuracy_compare.png" width="650px"/>

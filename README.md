@@ -7,8 +7,11 @@ This repository contains a number of deep learning TensorFlow 2.x Keras-based pr
 
 The following is a list of the projects included in this repository:
 
+## [Autoencoder](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/autoencoder/)
+* [Image Filter Fashion MNIST:](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/autoencoder/image-filter-fashion-mnist) A Keras-based deep learning autoencoder that filters out noise from a given image.
+
 ## [Convolutional Neural Networks (CNNs)](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/cnn/)
-* [Malaria Predictor:](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/CNN/malaria-predictor) A Keras-based deeplearning CNN to predict whether a cell has been infected by malaria or not.
+* [Malaria Predictor:](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/CNN/malaria-predictor) A Keras-based deep learning CNN to predict whether a cell has been infected by malaria or not.
 
 
 ## [Deep Feed-Forward Neural Networks (DFFs)](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/dff)

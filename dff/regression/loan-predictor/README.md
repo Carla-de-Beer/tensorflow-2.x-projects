@@ -12,7 +12,7 @@ Note that the images are contained within a zipped folder that needs to be unzip
 
 ## Data Analysis
 
-</br>
+<br/>
 <p align="center">
   <img src="images/distplot-loan_amnt.png" width="650px"/>
   <img src="images/heatmap-correlation.png" width="650px"/>
