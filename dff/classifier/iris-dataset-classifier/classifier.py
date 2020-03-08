@@ -13,12 +13,13 @@ from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.models import load_model
 import joblib
 
-epochs = 300
+epochs = 400
+patience = 4
 
 
 def read_data():
@@ -51,6 +52,7 @@ def create_model():
     model = Sequential()
 
     model.add(Dense(units=4, activation='relu', input_shape=[4, ]))
+   # model.add(Dropout(0.2))
     model.add(Dense(units=3, activation='softmax'))
 
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
@@ -107,7 +109,7 @@ scaled_X_train, scaled_X_test = scale_data(scaler)
 
 model = create_model()
 
-early_stop = EarlyStopping(monitor='val_loss', patience=10)
+early_stop = EarlyStopping(monitor='val_loss', patience=patience)
 
 model.fit(x=scaled_X_train,
           y=y_train,
@@ -127,7 +129,7 @@ scaled_X = scaler.fit_transform(X)
 model = create_model()
 
 model.fit(scaled_X, y, epochs=epochs)
-model.save('model/inal_iris_model.h5')
+model.save('model/final_iris_model.h5')
 
 # Save scaler for later use external to this program
 joblib.dump(scaler, 'model/iris_scaler.pkl')
@@ -137,6 +139,14 @@ flower_scaler = joblib.load('model/iris_scaler.pkl')
 
 iris.head()
 
-flower_example = {"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}
+flower_example1 = {"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}
+flower_example2 = {"sepal_length": 2.1, "sepal_width": 5.5, "petal_length": 1.4, "petal_width": 3.2}
 
-predicted_index = return_prediction(model, scaler, flower_example)
+predicted_index1 = return_prediction(model, scaler, flower_example1)
+predicted_index2 = return_prediction(model, scaler, flower_example2)
+
+print("Prediction 1:")
+print(predicted_index1)
+
+print("Prediction 2:")
+print(predicted_index1)
