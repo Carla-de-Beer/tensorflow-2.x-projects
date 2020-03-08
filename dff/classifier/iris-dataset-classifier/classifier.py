@@ -52,7 +52,7 @@ def create_model():
     model = Sequential()
 
     model.add(Dense(units=4, activation='relu', input_shape=[4, ]))
-   # model.add(Dropout(0.2))
+    # model.add(Dropout(0.2))
     model.add(Dense(units=3, activation='softmax'))
 
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
