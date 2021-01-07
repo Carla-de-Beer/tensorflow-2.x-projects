@@ -1,5 +1,5 @@
 # Carla de Beer
-# Created: Match 2020
+# Created: March 2020
 # A Keras-based deep feed-forward neural network classifying iris flower species given the input parameters provided.
 # Based on the Udemy course: Complete TensorFlow 2 and Keras Deep Learning Bootcamp:
 # https://www.udemy.com/course/complete-tensorflow-2-and-keras-deep-learning-bootcamp
@@ -13,7 +13,7 @@ from sklearn.preprocessing import LabelBinarizer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.layers import Dense
 from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras.models import load_model
 import joblib

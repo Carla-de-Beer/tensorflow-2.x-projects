@@ -5,6 +5,7 @@
 # Mushroom Dataset from: https://archive.ics.uci.edu/ml/datasets/Mushroom
 
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -139,7 +140,7 @@ early_stop = EarlyStopping(monitor='val_loss', patience=10)
 
 model.fit(x=X_train,
           y=y_train,
-          epochs=500,
+          epochs=50,
           validation_data=(X_test, y_test),
           callbacks=[early_stop])
 
@@ -147,7 +148,7 @@ evaluate_model()
 
 model.save('models/mushrooms_model.h5')
 
-predictions = model.predict_classes(X_test)
+predictions = np.argmax(model.predict(X_test), axis=-1)
 
 print(classification_report(y_test, predictions))
 
