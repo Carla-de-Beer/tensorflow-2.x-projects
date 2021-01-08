@@ -89,8 +89,12 @@ def evaluate_model():
     metrics = pd.DataFrame(model.history.history)
 
     metrics[['loss', 'val_loss']].plot()
+    plt.savefig('images/loss-val_loss')
+    plt.show()
 
     metrics[['accuracy', 'val_accuracy']].plot()
+    plt.savefig('images/accuracy-val_accuracy')
+    plt.show()
 
     model.evaluate(X_test, y_test, verbose=0)
 
@@ -116,7 +120,9 @@ df.transpose()
 
 print(list(df))
 
-sns.heatmap(df.corr(), annot=True)
+fig, ax = plt.subplots(figsize=(10, 10))
+sns.heatmap(df.corr(), annot=True, ax=ax)
+plt.savefig('images/heatmap')
 plt.show()
 
 X = df.drop('class', axis=1)
@@ -140,7 +146,7 @@ early_stop = EarlyStopping(monitor='val_loss', patience=10)
 
 model.fit(x=X_train,
           y=y_train,
-          epochs=50,
+          epochs=500,
           validation_data=(X_test, y_test),
           callbacks=[early_stop])
 
