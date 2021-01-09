@@ -114,6 +114,10 @@ print(df.describe().transpose())
 
 print(df.transpose())
 
+print(sns.countplot(x='class', data=df))
+plt.savefig('images/classes')
+plt.show()
+
 # Remove feature row with null values
 df = df.drop(['stalk-root'], axis=1)
 df.transpose()
@@ -154,7 +158,7 @@ evaluate_model()
 
 model.save('models/mushrooms_model.h5')
 
-predictions = np.argmax(model.predict(X_test), axis=-1)
+predictions = (model.predict(X_test) > 0.5).astype("int32")
 
 print(classification_report(y_test, predictions))
 

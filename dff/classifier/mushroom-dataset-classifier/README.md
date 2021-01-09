@@ -11,6 +11,7 @@ as being either edible or poisonous.
   https://archive.ics.uci.edu/ml/datasets/Mushroom
 
 <p align="center">
+  <img src="images/classes.png" width="500px"/>
   <img src="images/heatmap.png" width="500px"/>
 </p>
 
@@ -23,3 +24,22 @@ as being either edible or poisonous.
   <img src="images/loss-val_loss.png" width="500px"/>
   <img src="images/accuracy-val_accuracy.png" width="500px"/>
 </p>
+
+
+### Classification Report
+
+precision     | recall        | f1-score      | support       | -
+------------- | ------------- | ------------- | ------------- | -------------
+0             | 1.00          | 0.99          | 0.99          | 856
+1             | 0.99          | 768           | 768           | 768
+accuracy      |               |               | 0.99          | 1624
+macro avg     |  0.99         |   0.99        | 0.99          | 1624
+weighted avg  |  0.99         |   0.99        | 0.99          | 1624
+
+
+### Confusion Matrix
+
+Condition Positive  | Condition Negative
+------------- | -------------
+847           | 9
+0             | 768
