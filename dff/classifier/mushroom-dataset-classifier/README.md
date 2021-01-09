@@ -7,11 +7,16 @@ as being either edible or poisonous.
 
 ## Resources
 
+### Data
+
 * The project uses the Mushroom Dataset obtained from UCI Machine Learning Repository:
   https://archive.ics.uci.edu/ml/datasets/Mushroom
 
 <p align="center">
   <img src="images/classes.png" width="500px"/>
+</p>
+
+<p align="center">
   <img src="images/heatmap.png" width="500px"/>
 </p>
 
