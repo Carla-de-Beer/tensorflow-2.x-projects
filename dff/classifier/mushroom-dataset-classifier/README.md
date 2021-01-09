@@ -24,7 +24,6 @@ as being either edible or poisonous.
 
 ### Losses During Training
 
-<br/>
 <p align="center">
   <img src="images/loss-val_loss.png" width="500px"/>
   <img src="images/accuracy-val_accuracy.png" width="500px"/>
