@@ -2,7 +2,7 @@
 
 A Keras-based deep feed-forward neural network based on the Mushroom Dataset.
 
-The Mushroom Dataset is a multivariate dataset. It consists of mushroom dimensions and appearnaces and classifies them
+The Mushroom Dataset is a multivariate dataset. It consists of mushroom dimensions and appearances and classifies them
 as being either edible or poisonous.
 
 ## Resources

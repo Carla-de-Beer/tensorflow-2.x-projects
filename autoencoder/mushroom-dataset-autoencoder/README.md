@@ -1,6 +1,6 @@
 # Mushroom Dataset Autoencoder
 
-A Keras-based autoencoder based on the Mushroom Dataset.
+A Keras-based autoencoder based on the Mushroom Dataset employed in dimensionality reduction.
 
 The Mushroom Dataset is a multivariate dataset. It consists of mushroom dimensions and appearances and classifies them
 as being either edible or poisonous. The dataset consists of 23-dimensional data, which can only be visualised in 2 or 3 dimensions.

@@ -9,6 +9,8 @@ The following is a list of the projects included in this repository:
 
 ## [Autoencoder](https://github.com/Carla-de-Beer/tensorflow-2.0-projects/tree/master/autoencoder/)
 * [Image Filter Fashion MNIST:](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/autoencoder/image-filter-fashion-mnist) A Keras-based deep learning autoencoder that filters out noise from a given image.
+* [Mushroom Dataset Autoencoder:](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/autoencoder/mushroom-dataset-autoencoder) A Keras-based autoencoder based on the Mushroom Dataset employed in dimensionality reduction..
+
 
 ## [Convolutional Neural Networks (CNNs)](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/CNN)
 * [Malaria Predictor:](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/CNN/malaria-predictor) A Keras-based deep learning CNN to predict whether a cell has been infected by malaria or not.
