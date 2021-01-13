@@ -5,7 +5,6 @@
 # Mushroom Dataset from: https://archive.ics.uci.edu/ml/datasets/Mushroom
 
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -163,3 +162,4 @@ predictions = (model.predict(X_test) > 0.5).astype("int32")
 print(classification_report(y_test, predictions))
 
 print(confusion_matrix(y_test, predictions))
+
