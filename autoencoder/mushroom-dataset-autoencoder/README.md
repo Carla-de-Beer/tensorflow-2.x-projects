@@ -24,8 +24,7 @@ The autoencoder consists of two layers, reducing the input data from 21 dimensio
 
 The plot shows that the groupings are not linearly separable when represented in a 2D space. Nevertheless, a 
 [deep neural network](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/dff/classifier/mushroom-dataset-classifier) is 
-capable to differentiate between the two classes (here)
-
+capable to differentiate between the two classes wit a high level of accuracy.
 
 <p align="center">
   <img src="images/2D_visualisation_2.png" width="500px"/>
