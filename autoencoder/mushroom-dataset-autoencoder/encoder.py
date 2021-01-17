@@ -1,3 +1,10 @@
+# Carla de Beer
+# Created: January 2021
+# Autoencoder built with TensorFlow-Keras.
+# Autoencoder for dimensionality reduction, based on mushroom appearance data.
+# Mushroom Dataset from: https://archive.ics.uci.edu/ml/datasets/Mushroom
+
+
 import pandas as pd
 import matplotlib.pyplot as plt
 from tensorflow.keras.models import Sequential
