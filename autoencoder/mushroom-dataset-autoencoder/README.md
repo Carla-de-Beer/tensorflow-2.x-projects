@@ -1,6 +1,6 @@
 # Mushroom Dataset Autoencoder: Dimensionality Reduction
 
-A Keras-based autoencoder based on the Mushroom Dataset employed in dimensionality reduction.
+A Keras-based autoencoder employing the Mushroom Dataset in a dimensionality reduction exercise.
 
 The Mushroom Dataset is a multivariate dataset. It consists of mushroom dimensions and appearances and classifies them
 as being either edible or poisonous. The dataset consists of 23-dimensional data, which can only be visualised in 2 or 3
@@ -20,18 +20,24 @@ dimensions.
 
 ## Dimensionality reduction
 
+The architecture of the autoencoder consists of an encoder with:
+* 1 input layer with 21 nodes
+* 1 hidden layer that reduced the 21 input dimensions down to 12 dimensions
+* 1 output layer that further distills the dimensions down to 2.
+
 <p align="center">
-  <img src="images/architecture.png" width="700px"/>
+  <img src="images/architecture.jpg" width="650px"/>
 </p>
 
-The plot shows that the two classes are not linearly separable when represented in a 2D space. Nevertheless, a
+## 2D Representation
+
+The plot shows that the two classes are not linearly separable when represented in a 2D space (reducing the dimensions to a 3D rather than a 2D space added no meaningful benefit to the data visualisation). Nevertheless, a
 [deep neural network](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/dff/classifier/mushroom-dataset-classifier)
-is capable to differentiate between the two classes with a high level of accuracy.
+is easily capable to differentiate between the two classes with a high level of accuracy.
 
 <p align="center">
-  <img src="images/2D_visualisation_2.png" width="700px"/>
+  <img src="images/2D_visualisation_2.png" width="650px"/>
 </p>
 
 1 = Poisonous
-<br/>
 2 = Edible
