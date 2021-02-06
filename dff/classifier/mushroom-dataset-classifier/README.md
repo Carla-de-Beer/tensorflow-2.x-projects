@@ -13,11 +13,11 @@ as being either edible or poisonous.
   https://archive.ics.uci.edu/ml/datasets/Mushroom
 
 <p align="center">
-  <img src="images/classes.png" width="500px"/>
+  <img src="images/class-count.png" width="500px" alt="classes"/>
 </p>
 
 <p align="center">
-  <img src="images/heatmap.png" width="500px"/>
+  <img src="images/heatmap.png" width="650px" alt="heatmap"/>
 </p>
 
 ## Model Evaluation
@@ -25,21 +25,23 @@ as being either edible or poisonous.
 ### Losses During Training
 
 <p align="center">
-  <img src="images/loss-val_loss.png" width="500px"/>
-  <img src="images/accuracy-val_accuracy.png" width="500px"/>
+  <img src="images/loss-val_loss.png" width="500px" alt="val_loss"/>
+  <img src="images/accuracy-val_accuracy.png" width="500px" alt="val_accuracy"/>
 </p>
 
 
 ### Classification Report
 
-precision     | recall        | f1-score      | support       | -
-------------- | ------------- | ------------- | ------------- | -------------
-0             | 1.00          | 0.99          | 0.99          | 856
-1             | 0.99          | 768           | 768           | 768
-accuracy      |               |               | 0.99          | 1624
-macro avg     |  0.99         |   0.99        | 0.99          | 1624
-weighted avg  |  0.99         |   0.99        | 0.99          | 1624
+```
+              precision    recall  f1-score   support
 
+           0       1.00      1.00      1.00       851
+           1       1.00      1.00      1.00       774
+
+    accuracy                           1.00      1625
+   macro avg       1.00      1.00      1.00      1625
+weighted avg       1.00      1.00      1.00      1625
+```
 
 ### Confusion Matrix
 

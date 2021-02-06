@@ -36,8 +36,5 @@ The plot shows that the two classes are not linearly separable when represented 
 is easily capable to differentiate between the two classes with a high level of accuracy.
 
 <p align="center">
-  <img src="images/2D_visualisation_2.png" width="650px"/>
+  <img src="images/2D_visualisation.png" width="650px"/>
 </p>
-
-1 = Poisonous
-2 = Edible

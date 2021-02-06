@@ -131,3 +131,8 @@ dmypy.json
 .pyre/
 
 .DS_Store
+
+__MACOSX/
+*__MACOSX/
+*data/
+*logs/

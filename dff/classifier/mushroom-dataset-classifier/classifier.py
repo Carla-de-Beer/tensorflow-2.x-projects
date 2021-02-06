@@ -5,8 +5,9 @@
 # Mushroom Dataset from: https://archive.ics.uci.edu/ml/datasets/Mushroom
 
 import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
+import matplotlib.pyplot as plt
+from matplotlib.colors import ListedColormap
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelBinarizer
@@ -81,23 +82,39 @@ def create_model():
 
 
 def evaluate_model():
-    losses = pd.DataFrame(model.history.history)
-
-    losses.plot()
-
     metrics = pd.DataFrame(model.history.history)
 
-    metrics[['loss', 'val_loss']].plot()
+    metrics[['loss', 'val_loss']].plot(color=['#A3E949', '#ff5350'])
+
+    plt.xlabel('Epochs')
+    plt.ylabel('Percentage')
+    plt.title('Loss and Validation Loss', fontsize=10, fontweight='bold')
+
     plt.savefig('images/loss-val_loss')
     plt.show()
 
-    metrics[['accuracy', 'val_accuracy']].plot()
+    metrics[['accuracy', 'val_accuracy']].plot(color=['#A3E949', '#ff5350'])
+
+    plt.xlabel('Epochs')
+    plt.ylabel('Percentage')
+    plt.title('Accuracy and Validation Accuracy', fontsize=10, fontweight='bold')
+
     plt.savefig('images/accuracy-val_accuracy')
+    plt.show()
+
+    metrics[['accuracy', 'val_accuracy', 'loss', 'val_loss']].plot(color=['#A3E949', '#ff5350', '#1F998A', '#440154'])
+
+    plt.xlabel('Epochs')
+    plt.ylabel('Percentage')
+    plt.title('Accuracy and Loss', fontsize=10, fontweight='bold')
+
+    plt.savefig('images/accuracy-loss')
     plt.show()
 
     model.evaluate(X_test, y_test, verbose=0)
 
     epochs = len(metrics)
+    print('Number of epoch: %d' % epochs)
 
 
 df = pd.read_csv('data/mushrooms.csv')
@@ -113,7 +130,13 @@ print(df.describe().transpose())
 
 print(df.transpose())
 
+flatui = ["#32658E", "#D8E219"]
+sns.set_palette(flatui)
+
+my_cmap = ListedColormap(sns.color_palette(flatui).as_hex())
+
 print(sns.countplot(x='class', data=df))
+plt.title('Poisonous and Edible Class Count', fontsize=10, fontweight='bold')
 plt.savefig('images/classes')
 plt.show()
 
@@ -124,7 +147,7 @@ df.transpose()
 print(list(df))
 
 fig, ax = plt.subplots(figsize=(10, 10))
-sns.heatmap(df.corr(), annot=True, ax=ax)
+sns.heatmap(df.corr(), annot=False, ax=ax, cmap='viridis')
 plt.savefig('images/heatmap')
 plt.show()
 
@@ -157,9 +180,8 @@ evaluate_model()
 
 model.save('models/mushrooms_model.h5')
 
-predictions = (model.predict(X_test) > 0.5).astype("int32")
+predictions = (model.predict(X_test) > 0.5).astype('int32')
 
 print(classification_report(y_test, predictions))
 
 print(confusion_matrix(y_test, predictions))
-

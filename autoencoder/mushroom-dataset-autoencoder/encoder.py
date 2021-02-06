@@ -4,9 +4,9 @@
 # Autoencoder for dimensionality reduction, based on mushroom appearance data.
 # Mushroom Dataset from: https://archive.ics.uci.edu/ml/datasets/Mushroom
 
-
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import SGD
@@ -83,9 +83,13 @@ def convert_chars_to_ints(_df):
 def plot_encoded_dims(data):
     fig, ax = plt.subplots(figsize=(10, 8))
 
-    scatter = ax.scatter(data[:, 0], data[:, 1], c=y)
+    scatter = ax.scatter(data[:, 0], data[:, 1], c=y.to_numpy(), cmap=mcolors.ListedColormap(['#A3E949', '#ff5350']))
 
     legend = ax.legend(*scatter.legend_elements(), loc="upper right", title="Classes")
+
+    legend.get_texts()[0].set_text('poisonous')
+    legend.get_texts()[1].set_text('edible')
+
     ax.add_artist(legend)
     plt.savefig('images/2D_visualisation')
     plt.show()
