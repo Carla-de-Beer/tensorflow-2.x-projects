@@ -64,12 +64,12 @@ def evaulate_metrics(model):
     metrics = pd.DataFrame(model.history.history)
 
     metrics[['loss', 'val_loss']].plot()
-    plt.title('Accuracy and Validation Accuracy', fontsize=10, fontweight='bold')
+    plt.title('Loss and Validation Loss', fontsize=10, fontweight='bold')
     plt.savefig('images/loss-val_loss')
     plt.show()
 
     metrics[['accuracy', 'val_accuracy']].plot()
-    plt.title('Loss and Validation Loss', fontsize=10, fontweight='bold')
+    plt.title('Accuracy and Validation Accuracy', fontsize=10, fontweight='bold')
     plt.savefig('images/accuracy-val_accuracy')
     plt.show()
 
