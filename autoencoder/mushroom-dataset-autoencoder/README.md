@@ -31,10 +31,14 @@ The architecture of the autoencoder consists of an encoder with:
 
 ## 2D Representation
 
-The plot shows that the two classes are not linearly separable when represented in a 2D space (reducing the dimensions to a 3D rather than a 2D space added no meaningful benefit to the data visualisation). Nevertheless, a
-[deep neural network](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/dff/classifier/mushroom-dataset-classifier)
-is easily capable to differentiate between the two classes with a high level of accuracy.
+The plots show that the two classes are not linearly separable when represented in a 2D space
+(reducing the dimensions to a 3D rather than a 2D space added no meaningful benefit to the data visualisation).
+The graphs at times also display some clumping together of data points within a class.
+Nevertheless, a [deep neural network](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/dff/classifier/mushroom-dataset-classifier) is easily capable to differentiate between the two classes with a high level of accuracy.
 
 <p align="center">
-  <img src="images/2D_visualisation.png" width="650px"/>
+  <img src="images/2D_visualisation_3.png" width="350px"/>
+  <img src="images/2D_visualisation_6.png" width="350px"/>
+  <img src="images/2D_visualisation_7.png" width="350px"/>
+  <img src="images/2D_visualisation_9.png" width="350px"/>
 </p>

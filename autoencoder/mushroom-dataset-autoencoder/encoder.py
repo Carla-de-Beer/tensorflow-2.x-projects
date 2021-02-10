@@ -91,6 +91,7 @@ def plot_encoded_dims(data):
     legend.get_texts()[1].set_text('edible')
 
     ax.add_artist(legend)
+    plt.title('2D Space Representation', fontsize=10, fontweight='bold')
     plt.savefig('images/2D_visualisation')
     plt.show()
 
