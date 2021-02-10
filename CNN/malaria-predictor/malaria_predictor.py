@@ -169,10 +169,10 @@ def create_and_fit_model(_image_shape, _train_image_generator, _test_image_gener
     print(_train_image_generator.class_indices)
 
     # The model takes a while to train; as an alternative load the previously trained model instead
-    _model.fit_generator(_train_image_generator,
-                         epochs=2,
-                         validation_data=_test_image_generator,
-                         callbacks=[early_stop])
+    _model.fit(_train_image_generator,
+               epochs=2,
+               validation_data=_test_image_generator,
+               callbacks=[early_stop])
 
     print(_model.history.history)
 
@@ -183,10 +183,12 @@ def create_and_fit_model(_image_shape, _train_image_generator, _test_image_gener
     plt.show()
 
     _metrics[['loss', 'val_loss']].plot()
+    plt.title('Loss and Validation Loss', fontsize=10, fontweight='bold')
     plt.savefig('images/loss_compare')
     plt.show()
 
     _metrics[['accuracy', 'val_accuracy']].plot()
+    plt.title('Accuracy and Validation Accuracy', fontsize=10, fontweight='bold')
     plt.savefig('images/accuracy_compare')
     plt.show()
 
