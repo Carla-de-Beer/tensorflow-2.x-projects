@@ -113,7 +113,7 @@ def fit_model():
 # Run code
 
 # Get and process data
-DataHandler.extract_files()
+DataHandler.extract_data_files()
 
 num_images = DataHandler.calculate_num_images()
 train_steps_per_epoch = np.ceil((num_images * 0.8 / batch_size) - 1)
@@ -138,10 +138,10 @@ history = fit_model()
 print(model.history.history)
 
 # Save model
-UtilProvider.save_model(model, 'models/simple_classifier.h5')
+UtilProvider.save_model(model, './models/simple_classifier.h5')
 
 # Display metrics and classification report
-UtilProvider.display_metrics(model, 'images/s-loss-val_loss', 'images/s-accuracy-val_accuracy')
+UtilProvider.display_metrics(model, './images/s-loss-val_loss', './images/s-accuracy-val_accuracy')
 UtilProvider.display_classification_report(model, validation_generator)
 
 # Test predictions

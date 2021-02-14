@@ -136,8 +136,6 @@ class UtilProvider:
 
                     classes = model.predict(my_img_array)
 
-                    print(classes[0][0])
-
                     if classes[0][0] < 0.5:
                         print(str(count) + '. ' + filename + ': CARTOON')
                         print(f"Degree of certainty: {round(100 - classes[0][0] * 100, 4)}%")
@@ -149,5 +147,5 @@ class UtilProvider:
 
                     count = count + 1
 
-        print(f"Test error: {round(error / 20, 4) * 100}%")
+        print(f"Test error: {round(error / ((count - 1) * 2), 6) * 100}%")
         print('\nDONE.')

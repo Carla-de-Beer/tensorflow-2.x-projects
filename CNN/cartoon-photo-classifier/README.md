@@ -3,16 +3,18 @@
 Two comparative Tensorflow-Keras-based deeplearning convolutional neural networks (CNNs) to predict whether an image is a
 cartoon or a photo. The simpler CNN makes use solely of the provided dataset, whereas the other CNN additionally benefits 
 from the application of the weights from a pre-trained model in the process of transfer learning. The classifier based on 
-transfer learning boosts the accuracy of the somewhat limited dataset to nearly 100%, and additionally manages to train 
-more quickly in only a handful of epochs. That said, the size of the transfer learning model is larger, and even in the 
-case of the simpler classifier, the model managed to achieve a reasonable degree of accuracy on a relatively small dataset.
+transfer learning boosts the accuracy of the somewhat limited dataset to nearly 100%, and additionally manages to train more 
+quickly in only a handful of epochs. This also means that the simpler model's code needs to be run a few times before a strong 
+model emerges. With the transfer learning a strong model with around 99% accuracy is almost guaranteed at the first attempt. 
+That said, the size of the transfer learning model is huge (63.295 times larger than that of the simpler model), and even in 
+the case of the simpler classifier, the model managed to achieve a reasonable degree of accuracy on a relatively small dataset.
 
 ## Dataset
 
 Cartoons come in varying genres and styles. They are characterised mostly by a non-realistic or semi-realistic style,
 with vibrant or garish colours in a saturated colour palette and often with outline contours to the figures depicted.
 The images used in this dataset tend to conform to this paradigm. Likewise, the photos were chosen to reflect animals,
-faces and landscapes similar to those featured in the cartoons. The aim of the CNNs is to see whether the neural
+faces and landscapes similar to those featured in the cartoons. The aim of the CNNs is to determine whether the neural
 networks are able to find and learn the distinguishing features between the two types of images.
 
 There are 250 JPEG images of either category, of varying sizes, and with an 8:2 split between training and validation
@@ -28,9 +30,9 @@ data. A set of 10 images were additionally set aside for testing purposes. All i
 
 ## 1. Simple Classifier
 
-The current dataset of cartoons and images, with a combined total of 500 images, is quite small in comparison to typically 
-used CNN training datasets. This small dataset therefore cannot sufficiently cater for the many different subsets of 
-styles and subjects featured in the cartoons and photos. This may lead to some degree of overfitting, hence the addition 
+The current dataset of cartoons and images, with a combined total of 500 images, is quite small in comparison with the size 
+of typically used CNN training datasets. This small dataset therefore cannot sufficiently cater for the many different subsets 
+of styles and subjects featured in the cartoons and photos. This may lead to some degree of overfitting, hence the addition 
 of dropout and regularisation to this CNN. The sourcing of more images should get around this issue and increase accuracy.
 
 The simple classifier project is also mapped via TensorBoard. To follow the image and graph data there, do the
@@ -59,10 +61,10 @@ following:
 ### Model Evaluation
 
 #### Model Summary
-Model size in bytes: 20059760
-Total params: 1,666,401
-Trainable params: 1,666,401
-Non-trainable params: 0
+* Model size in bytes: 20,059,760 (= 0.02005976 GB)
+* Total params: 1,666,401
+* Trainable params: 1,666,401
+* Non-trainable params: 0
 
 #### Accuracy and Losses During Training
 
@@ -117,7 +119,7 @@ A set of 10 test images is presented to the trained model to verify the test err
   </p>
 </div>
 
-Test error: 1.38%
+Test error: 1.3792%
 
 `image-06.jpg` and `image-09.jpg` are very colourful, as one would expect to see in a cartoon. In one case, the model
 achieved an accuracy level of around 77% and incorrectly classified these images.
@@ -126,7 +128,7 @@ achieved an accuracy level of around 77% and incorrectly classified these images
 
 In an attempt to get around any overfitting of the first attempt, and to increase the model's accuracy without having to
 source additional dataset material, the second classifier is configured to make use of transfer learning. The transfer
-learning is based on the [Inception V3](https://www.tensorflow.org/api_docs/python/tf/keras/applications/InceptionV3) model.
+learning is based on the [Inception V3](https://arxiv.org/abs/1512.00567) model.
 
 ### Model Evaluation
 
@@ -139,10 +141,10 @@ learning is based on the [Inception V3](https://www.tensorflow.org/api_docs/pyth
 </p>
 
 #### Model Summary
-Model size in bytes: 1269686560
-Total params: 21,802,784
-Trainable params: 0
-Non-trainable params: 21,802,784
+* Model size in bytes: 1,269,686,560 (= 1.26968656 GB)
+* Total params: 163,117,985
+* Trainable params: 154,142,721
+* Non-trainable params: 8,975,264
 
 #### Classification Report
 
@@ -172,8 +174,8 @@ A set of 10 test images is presented to the trained model to verify the test err
 | ------------- | -----------------------------------------------------------:| ------------:|--------:|--------------------:|
 | image-01.jpg  |<img src="unseen/image-01.jpg" width="120px" alt="image-01"/>| CARTOON      | ✅      |              100.0% |
 | image-02.jpg  |<img src="unseen/image-02.jpg" width="120px" alt="image-02"/>| CARTOON      | ✅      |              100.0% |
-| image-03.jpg  |<img src="unseen/image-03.jpg" width="120px" alt="image-03"/>| CARTOON      | ✅      |            99.9999% |
-| image-04.jpg  |<img src="unseen/image-04.jpg" width="120px" alt="image-04"/>| CARTOON      | ✅      |            98.7057% |
+| image-03.jpg  |<img src="unseen/image-03.jpg" width="120px" alt="image-03"/>| CARTOON      | ✅      |              100.0% |
+| image-04.jpg  |<img src="unseen/image-04.jpg" width="120px" alt="image-04"/>| CARTOON      | ✅      |            99.9501% |
 | image-05.jpg  |<img src="unseen/image-05.jpg" width="120px" alt="image-05"/>| CARTOON      | ✅      |              100.0% |
 | image-06.jpg  |<img src="unseen/image-06.jpg" width="120px" alt="image-06"/>| PHOTO        | ✅      |              100.0% |
 | image-07.jpg  |<img src="unseen/image-07.jpg" width="120px" alt="image-07"/>| PHOTO        | ✅      |              100.0% |
@@ -187,6 +189,6 @@ A set of 10 test images is presented to the trained model to verify the test err
   <img src="images/test-error.png" alt="test-error"/>
 </p>
 
-Test error: 0.0%.
+Test error: 0.0004%.
 
 NOTE: The `test_model.py` file allows for the running of the test data for both models.

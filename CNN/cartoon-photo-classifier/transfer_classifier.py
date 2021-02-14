@@ -23,6 +23,7 @@ def get_pre_trained_model():
                                     include_top=False,
                                     weights=None)
 
+    DataHandler.extract_inception_model(local_weights_file)
     pre_trained_model.load_weights(local_weights_file)
 
     for layer in pre_trained_model.layers:
@@ -69,7 +70,7 @@ def fit_model():
 # Run code
 
 # Get and process data
-DataHandler.extract_files()
+DataHandler.extract_data_files()
 
 num_images = DataHandler.calculate_num_images()
 train_steps_per_epoch = np.ceil((num_images * 0.8 / batch_size) - 1)
@@ -79,14 +80,15 @@ val_steps_per_epoch = np.ceil((num_images * 0.2 / batch_size) - 1)
 
 # Compile and fit model
 model = create_compile_model(get_pre_trained_model())
+print(model.summary())
 history = fit_model()
 print(model.history.history)
 
 # Save model
-UtilProvider.save_model(model, 'models/transfer_classifier.h5')
+UtilProvider.save_model(model, './models/transfer_classifier.h5')
 
 # Display metrics and classification report
-UtilProvider.display_metrics(model, 'images/t-loss-val_loss', 'images/t-accuracy-val_accuracy')
+UtilProvider.display_metrics(model, './images/t-loss-val_loss', './images/t-accuracy-val_accuracy')
 UtilProvider.display_classification_report(model, validation_generator)
 
 # Test predictions
