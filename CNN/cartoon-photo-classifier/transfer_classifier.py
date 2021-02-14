@@ -54,8 +54,21 @@ def create_compile_model(pre_trained_model):
     return model
 
 
+def fit_model():
+    early_stop = EarlyStopping(monitor='val_loss', patience=patience)
+
+    return model.fit(train_generator,
+                     validation_data=validation_generator,
+                     steps_per_epoch=train_steps_per_epoch,
+                     epochs=epochs,
+                     validation_steps=val_steps_per_epoch,
+                     verbose=2,
+                     callbacks=[early_stop])
+
+
 # Run code
 
+# Get and process data
 DataHandler.extract_files()
 
 num_images = DataHandler.calculate_num_images()
@@ -64,26 +77,17 @@ val_steps_per_epoch = np.ceil((num_images * 0.2 / batch_size) - 1)
 
 [train_generator, validation_generator] = UtilProvider.create_data_generators(batch_size, image_size)
 
+# Compile and fit model
 model = create_compile_model(get_pre_trained_model())
-
-early_stop = EarlyStopping(monitor='val_loss', patience=patience)
-
-history = model.fit(train_generator,
-                    validation_data=validation_generator,
-                    steps_per_epoch=train_steps_per_epoch,
-                    epochs=epochs,
-                    validation_steps=val_steps_per_epoch,
-                    verbose=2,
-                    callbacks=[early_stop])
-
+history = fit_model()
 print(model.history.history)
 
-model.save('models/transfer_classifier.h5')
+# Save model
+UtilProvider.save_model(model, 'models/transfer_classifier.h5')
 
+# Display metrics and classification report
 UtilProvider.display_metrics(model, 'images/t-loss-val_loss', 'images/t-accuracy-val_accuracy')
-
 UtilProvider.display_classification_report(model, validation_generator)
 
-UtilProvider.display_classification_report(model, validation_generator)
-
+# Test predictions
 UtilProvider.make_predictions(model)

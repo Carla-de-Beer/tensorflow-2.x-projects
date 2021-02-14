@@ -14,13 +14,13 @@ class UtilProvider:
 
     @staticmethod
     def create_data_generators(batch_size, image_size):
-        # Define our example directories and files
+        # Define the example directories and files
         base_dir = 'data'
 
         train_dir = os.path.join(base_dir, 'train')
         validation_dir = os.path.join(base_dir, 'validation')
 
-        # Add our data-augmentation parameters to ImageDataGenerator
+        # Add the data-augmentation parameters to ImageDataGenerator
         train_datagen = ImageDataGenerator(rescale=1. / 255.,
                                            rotation_range=40,
                                            width_shift_range=0.2,
@@ -32,14 +32,14 @@ class UtilProvider:
         # Note that the validation data should not be augmented!
         test_datagen = ImageDataGenerator(rescale=1.0 / 255.)
 
-        # Flow training images in batches of 20 using train_datagen generator
+        # Flow training images in batches of batch_size using train_datagen generator
         train_generator = train_datagen.flow_from_directory(train_dir,
                                                             batch_size=batch_size,
                                                             class_mode='binary',
                                                             shuffle=True,
                                                             target_size=(image_size, image_size))
 
-        # Flow validation images in batches of 20 using test_datagen generator
+        # Flow validation images in batches of batch_size using test_datagen generator
         validation_generator = test_datagen.flow_from_directory(validation_dir,
                                                                 batch_size=batch_size,
                                                                 class_mode='binary',
@@ -47,6 +47,12 @@ class UtilProvider:
                                                                 target_size=(image_size, image_size))
 
         return train_generator, validation_generator
+
+    @staticmethod
+    def save_model(model, model_path):
+        model_path = model_path
+        model.save(model_path)
+        print(f"Model file size in bytes: {os.stat(model_path).st_size}")
 
     @staticmethod
     def display_classification_report(model, validation_generator):
@@ -116,6 +122,9 @@ class UtilProvider:
         unseen_names.remove('.DS_Store')  # In case of a macOS directory
         unseen_names.sort()
 
+        count = 1
+        error = 0.0
+
         for filename in unseen_names:
             if filename.endswith('.jpg'):
                 with open(os.path.join(dir_name + '/', filename)) as f:
@@ -127,9 +136,18 @@ class UtilProvider:
 
                     classes = model.predict(my_img_array)
 
-                    if classes[0][0] < 0.5:
-                        print(filename + ': CARTOON')
-                    elif classes[0][0] >= 0.5:
-                        print(filename + ': PHOTO')
+                    print(classes[0][0])
 
+                    if classes[0][0] < 0.5:
+                        print(str(count) + '. ' + filename + ': CARTOON')
+                        print(f"Degree of certainty: {round(100 - classes[0][0] * 100, 4)}%")
+                        error = error + pow(0 - classes[0][0], 2)
+                    elif classes[0][0] >= 0.5:
+                        print(str(count) + '. ' + filename + ': PHOTO')
+                        print(f"Degree of certainty: {round(classes[0][0] * 100, 4)}%")
+                        error = error + pow(1 - classes[0][0], 2)
+
+                    count = count + 1
+
+        print(f"Test error: {round(error / 20, 4) * 100}%")
         print('\nDONE.')

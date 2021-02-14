@@ -1,10 +1,11 @@
 # Cartoon-Photo Classifier
 
-Two comparative Tensorflow-Keras-based deeplearning convolutional neural networks (CNN) to predict whether an image is a
-cartoon or a photo. The simpler CNN makes use solely of the provided dataset, whereas the other CNN additionally
-benefits from the application of the weights from a pre-trained model in the process of transfer learning. The classifier
-based on transfer learning boosts the accuracy of the somewhat limited dataset to nearly 100%, and additionally manages
-to train more quickly in only a handful of epochs. That said, even in the case of the simpler classifier, the model managed to achieve a reasonable degree of accuracy on a relatively small dataset.
+Two comparative Tensorflow-Keras-based deeplearning convolutional neural networks (CNNs) to predict whether an image is a
+cartoon or a photo. The simpler CNN makes use solely of the provided dataset, whereas the other CNN additionally benefits 
+from the application of the weights from a pre-trained model in the process of transfer learning. The classifier based on 
+transfer learning boosts the accuracy of the somewhat limited dataset to nearly 100%, and additionally manages to train 
+more quickly in only a handful of epochs. That said, the size of the transfer learning model is larger, and even in the 
+case of the simpler classifier, the model managed to achieve a reasonable degree of accuracy on a relatively small dataset.
 
 ## Dataset
 
@@ -15,7 +16,7 @@ faces and landscapes similar to those featured in the cartoons. The aim of the C
 networks are able to find and learn the distinguishing features between the two types of images.
 
 There are 250 JPEG images of either category, of varying sizes, and with an 8:2 split between training and validation
-data. Images were sourced by means of Google searches.
+data. A set of 10 images were additionally set aside for testing purposes. All images were sourced by means of Google searches.
 
 ### Image Size Distributions
 
@@ -27,10 +28,10 @@ data. Images were sourced by means of Google searches.
 
 ## 1. Simple Classifier
 
-The original dataset of cartoons and images, with a combined total of 500 images, is quite small in comparison to
-typical CNN datasets, and also due to the many different subsets of styles and subjects featured in the cartoons and
-photos. This may lead to some degree of overfitting, hence the addition of dropout and regularisation to this CNN. The
-sourcing of more images should get around this issue and increase accuracy.
+The current dataset of cartoons and images, with a combined total of 500 images, is quite small in comparison to typically 
+used CNN training datasets. This small dataset therefore cannot sufficiently cater for the many different subsets of 
+styles and subjects featured in the cartoons and photos. This may lead to some degree of overfitting, hence the addition 
+of dropout and regularisation to this CNN. The sourcing of more images should get around this issue and increase accuracy.
 
 The simple classifier project is also mapped via TensorBoard. To follow the image and graph data there, do the
 following:
@@ -40,7 +41,7 @@ following:
 
 * Open a browser window with the following URL:
   ```http://localhost:6006/```
-  
+
 #### TensorBoard Images
 
 <br/>
@@ -57,6 +58,12 @@ following:
 
 ### Model Evaluation
 
+#### Model Summary
+Model size in bytes: 20059760
+Total params: 1,666,401
+Trainable params: 1,666,401
+Non-trainable params: 0
+
 #### Accuracy and Losses During Training
 
 <br/>
@@ -70,44 +77,56 @@ following:
 ```
               precision    recall  f1-score   support
 
-           0       0.64      0.98      0.77        48
-           1       0.95      0.44      0.60        48
+           0       0.81      0.96      0.88        48
+           1       0.95      0.77      0.85        48
 
-    accuracy                           0.71        96
-   macro avg       0.79      0.71      0.69        96
-weighted avg       0.79      0.71      0.69        96
+    accuracy                           0.86        96
+   macro avg       0.88      0.86      0.86        96
+weighted avg       0.88      0.86      0.86        96
 ```
 
 #### Confusion Matrix
 
 ```
-[[47  1]
- [27 21]]
+[[46  2]
+ [11 37]]
  ```
 
 #### Testing with Unseen Data
 
-| Filename      | Image                                                       | Prediction   | Result  |
-| ------------- | -----------------------------------------------------------:| ------------:|--------:|
-| image-01.jpg  |<img src="unseen/image-01.jpg" width="120px" alt="image-01"/>| CARTOON      | ✅      |
-| image-02.jpg  |<img src="unseen/image-02.jpg" width="120px" alt="image-02"/>| CARTOON      | ✅      |
-| image-03.jpg  |<img src="unseen/image-03.jpg" width="120px" alt="image-03"/>| CARTOON      | ✅      |
-| image-04.jpg  |<img src="unseen/image-04.jpg" width="120px" alt="image-04"/>| CARTOON      | ✅      |
-| image-05.jpg  |<img src="unseen/image-05.jpg" width="120px" alt="image-05"/>| CARTOON      | ✅      |
-| image-06.jpg  |<img src="unseen/image-06.jpg" width="120px" alt="image-06"/>| CARTOON      | ❌      |
-| image-07.jpg  |<img src="unseen/image-07.jpg" width="120px" alt="image-07"/>| PHOTO        | ✅      |
-| image-08.jpg  |<img src="unseen/image-08.jpg" width="120px" alt="image-08"/>| PHOTO        | ✅      |
-| image-09.jpg  |<img src="unseen/image-09.jpg" width="120px" alt="image-09"/>| CARTOON      | ❌      |
-| image-10.jpg  |<img src="unseen/image-10.jpg" width="120px" alt="image-10"/>| PHOTO        | ✅      |
+A set of 10 test images is presented to the trained model to verify the test error:
 
-`image-06.jpg` and `image-09.jpg` are very colourful, as one would expect to see in a cartoon.
-In one case, the model achieved an accuracy level of around 86%. In this case `image-09.jpg` was correctly classified.
+| Filename      | Image                                                       | Prediction   | Result  | Degree of Certainty |
+| ------------- | -----------------------------------------------------------:| ------------:|--------:|--------------------:|
+| image-01.jpg  |<img src="unseen/image-01.jpg" width="120px" alt="image-01"/>| CARTOON      | ✅      |              100.0% |
+| image-02.jpg  |<img src="unseen/image-02.jpg" width="120px" alt="image-02"/>| CARTOON      | ✅      |            99.9997% |
+| image-03.jpg  |<img src="unseen/image-03.jpg" width="120px" alt="image-03"/>| CARTOON      | ✅      |              100.0% |
+| image-04.jpg  |<img src="unseen/image-04.jpg" width="120px" alt="image-04"/>| CARTOON      | ✅      |            98.6573% |
+| image-05.jpg  |<img src="unseen/image-05.jpg" width="120px" alt="image-05"/>| CARTOON      | ✅      |             99.994% |
+| image-06.jpg  |<img src="unseen/image-06.jpg" width="120px" alt="image-06"/>| PHOTO        | ✅      |            59.3101% |
+| image-07.jpg  |<img src="unseen/image-07.jpg" width="120px" alt="image-07"/>| PHOTO        | ✅      |            84.3401% |
+| image-08.jpg  |<img src="unseen/image-08.jpg" width="120px" alt="image-08"/>| PHOTO        | ✅      |            80.1649% |
+| image-09.jpg  |<img src="unseen/image-09.jpg" width="120px" alt="image-09"/>| PHOTO        | ✅      |            80.8735% |
+| image-10.jpg  |<img src="unseen/image-10.jpg" width="120px" alt="image-10"/>| PHOTO        | ✅      |            90.1829% |
+
+#### Test Error Simple Model
+
+<div align="center">
+  <p>
+    <img src="images/test-error.png" alt="test-error"/>
+  </p>
+</div>
+
+Test error: 1.38%
+
+`image-06.jpg` and `image-09.jpg` are very colourful, as one would expect to see in a cartoon. In one case, the model
+achieved an accuracy level of around 77% and incorrectly classified these images.
 
 ## 2. Transfer Classifier
 
-In an attempt to get around any overfitting of the first attempt, and to increase the model's accuracy without having 
-to source additional dataset material, a second classifier is configured to make use of transfer learning. 
-The transfer learning is based on the [Inception V3](https://www.tensorflow.org/api_docs/python/tf/keras/applications/InceptionV3) model.
+In an attempt to get around any overfitting of the first attempt, and to increase the model's accuracy without having to
+source additional dataset material, the second classifier is configured to make use of transfer learning. The transfer
+learning is based on the [Inception V3](https://www.tensorflow.org/api_docs/python/tf/keras/applications/InceptionV3) model.
 
 ### Model Evaluation
 
@@ -119,37 +138,55 @@ The transfer learning is based on the [Inception V3](https://www.tensorflow.org/
   <img src="images/t-loss-val_loss.png" width="450px" alt="loss"/>
 </p>
 
+#### Model Summary
+Model size in bytes: 1269686560
+Total params: 21,802,784
+Trainable params: 0
+Non-trainable params: 21,802,784
+
 #### Classification Report
 
 ```
               precision    recall  f1-score   support
 
-           0       1.00      0.98      0.99        48
-           1       0.98      1.00      0.99        48
+           0       1.00      1.00      1.00        48
+           1       1.00      1.00      1.00        48
 
-    accuracy                           0.99        96
-   macro avg       0.99      0.99      0.99        96
-weighted avg       0.99      0.99      0.99        96
+    accuracy                           1.00        96
+   macro avg       1.00      1.00      1.00        96
+weighted avg       1.00      1.00      1.00        96
 ```
 
 #### Confusion Matrix
 
 ```
-[[45  3]
+[[48  0]
  [ 0 48]]
  ```
 
 #### Testing with Unseen Data
 
-| Filename      | Image                                                       | Prediction   | Result  |
-| ------------- | -----------------------------------------------------------:| ------------:|--------:|
-| image-01.jpg  |<img src="unseen/image-01.jpg" width="120px" alt="image-01"/>| CARTOON      | ✅      |
-| image-02.jpg  |<img src="unseen/image-02.jpg" width="120px" alt="image-02"/>| CARTOON      | ✅      |
-| image-03.jpg  |<img src="unseen/image-03.jpg" width="120px" alt="image-03"/>| CARTOON      | ✅      |
-| image-04.jpg  |<img src="unseen/image-04.jpg" width="120px" alt="image-04"/>| CARTOON      | ✅      |
-| image-05.jpg  |<img src="unseen/image-05.jpg" width="120px" alt="image-05"/>| CARTOON      | ✅      |
-| image-06.jpg  |<img src="unseen/image-06.jpg" width="120px" alt="image-06"/>| PHOTO        | ✅      |
-| image-07.jpg  |<img src="unseen/image-07.jpg" width="120px" alt="image-07"/>| PHOTO        | ✅      |
-| image-08.jpg  |<img src="unseen/image-08.jpg" width="120px" alt="image-08"/>| PHOTO        | ✅      |
-| image-09.jpg  |<img src="unseen/image-09.jpg" width="120px" alt="image-09"/>| PHOTO        | ✅      |
-| image-10.jpg  |<img src="unseen/image-10.jpg" width="120px" alt="image-10"/>| PHOTO        | ✅      |
+A set of 10 test images is presented to the trained model to verify the test error:
+
+| Filename      | Image                                                       | Prediction   | Result  | Degree of Certainty |
+| ------------- | -----------------------------------------------------------:| ------------:|--------:|--------------------:|
+| image-01.jpg  |<img src="unseen/image-01.jpg" width="120px" alt="image-01"/>| CARTOON      | ✅      |              100.0% |
+| image-02.jpg  |<img src="unseen/image-02.jpg" width="120px" alt="image-02"/>| CARTOON      | ✅      |              100.0% |
+| image-03.jpg  |<img src="unseen/image-03.jpg" width="120px" alt="image-03"/>| CARTOON      | ✅      |            99.9999% |
+| image-04.jpg  |<img src="unseen/image-04.jpg" width="120px" alt="image-04"/>| CARTOON      | ✅      |            98.7057% |
+| image-05.jpg  |<img src="unseen/image-05.jpg" width="120px" alt="image-05"/>| CARTOON      | ✅      |              100.0% |
+| image-06.jpg  |<img src="unseen/image-06.jpg" width="120px" alt="image-06"/>| PHOTO        | ✅      |              100.0% |
+| image-07.jpg  |<img src="unseen/image-07.jpg" width="120px" alt="image-07"/>| PHOTO        | ✅      |              100.0% |
+| image-08.jpg  |<img src="unseen/image-08.jpg" width="120px" alt="image-08"/>| PHOTO        | ✅      |              100.0% |
+| image-09.jpg  |<img src="unseen/image-09.jpg" width="120px" alt="image-09"/>| PHOTO        | ✅      |              100.0% |
+| image-10.jpg  |<img src="unseen/image-10.jpg" width="120px" alt="image-10"/>| PHOTO        | ✅      |              100.0% |
+
+#### Test Error Transfer Model
+
+<p align="center">
+  <img src="images/test-error.png" alt="test-error"/>
+</p>
+
+Test error: 0.0%.
+
+NOTE: The `test_model.py` file allows for the running of the test data for both models.
