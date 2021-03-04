@@ -13,8 +13,6 @@ The following is a list of the projects included in this repository:
 
 
 ## [Convolutional Neural Networks (CNNs)](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/CNN)
-* [Cartoon-Photo Classifier:](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/CNN/cartoon-photo-classifier) Two comparative Tensorflow-Keras-based deeplearning convolutional neural networks to predict whether an image is a cartoon or a
-photo.
 * [Malaria Predictor:](https://github.com/Carla-de-Beer/tensorflow-2.x-projects/tree/master/CNN/malaria-predictor) A Keras-based deep learning CNN to predict whether a cell has been infected by malaria or not.
 
 
